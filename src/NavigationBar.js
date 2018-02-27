@@ -3,9 +3,9 @@ import './NavigationBar.css'
 export default function NavigationBar(){
   return(
     <nav>
-      <ul className="navUl" >
-        <li><a href="#">What?</a></li>
-        <li><a href="#">+ New Game</a></li>
+      <ul className="nav-ul" >
+        <li><a href="#What">What?</a></li>
+        <li><a href="#New">+ New Game</a></li>
       </ul>
     </nav>
   )
