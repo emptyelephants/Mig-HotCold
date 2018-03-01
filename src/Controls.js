@@ -1,14 +1,17 @@
 import React from 'react'
 import './Controls.css'
-export default function Controls(){
+export default function Controls(props){
 
   return (
     <div className="game-controls">
-      <form>
-        <input type="text" placeholder="Enter your Guess" />
+      <form onSubmit={(e)=>{
+        e.preventDefault()
+        props.getGuess(e.target.guess.value)
+        e.target.reset()}}>
+        <input name="guess" type="number" min={1} max={100} placeholder="Enter your Guess" />
         <input type="submit" className="game-button" />
       </form>
-      <span className="guess-number">Guess number #0</span>
+      <span className="guess-string">Last Guess number # <span className="guess-number">{props.lastGuess}</span></span>
     </div>
   );
 }

@@ -1,12 +1,11 @@
 import React from 'react';
-import './NavigationBar.css'
-export default function NavigationBar(){
+import './NavigationBar.css';
+import InfoButton from './InfoButton';
+export default function NavigationBar(props){
   return(
-    <nav>
-      <ul className="nav-ul" >
-        <li><a href="#What">What?</a></li>
-        <li><a href="#New">+ New Game</a></li>
-      </ul>
-    </nav>
+    <div className="navbar">
+      <InfoButton className="info-button" text="What?" link="#that" />
+      <InfoButton text ="+ New Game" link="#this" testFunc={() => props.testFunc} />
+    </div>
   )
 }

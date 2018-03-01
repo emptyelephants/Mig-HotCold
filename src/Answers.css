@@ -1,4 +1,5 @@
 .user-answers{
+  height:100%;
   width: 100%;
   background-color: rgba(232, 231, 84, 0.85);
   padding:14px 0px;
@@ -21,9 +22,11 @@
   padding-top: 5px;
 }
 .user-answers li{
+  color:rgb(255, 255, 255);
+  border-radius:4px;
   list-style:none;
   margin-left: 10px;
   margin-right: 10px;
   padding:3px;
-  background-color:rgba(232, 208, 84, 1);
+  background-color:rgba(221, 148, 52, 1);
 }
