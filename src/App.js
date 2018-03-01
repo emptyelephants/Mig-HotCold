@@ -17,7 +17,6 @@ class App extends Component {
   giveFeedback(userGuess){
     const difference = Math.abs(userGuess-this.state.correctAnswer);
     if(difference ===0){
-
       return 'Winner !'
     }
     else if(difference>=40){
@@ -30,7 +29,7 @@ class App extends Component {
       return 'warm'
     }
     else if (difference>=10) {
-      return 'hotter...'
+      return 'hotter'
     }
     else if (difference<=10){
       return 'hot!!!';
@@ -46,7 +45,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <NavigationBar testFunc={() => this.restartGame()} />
+        <NavigationBar restartGame={() => this.restartGame()} />
         <h1 className="App-title">Hot or Cold</h1>
           <div className="game-box">
             <Feedback feedBackString={feedBackString}/>

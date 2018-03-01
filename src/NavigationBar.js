@@ -5,7 +5,7 @@ export default function NavigationBar(props){
   return(
     <div className="navbar">
       <InfoButton className="info-button" text="What?" link="#that" />
-      <InfoButton text ="+ New Game" link="#this" testFunc={() => props.testFunc} />
+      <InfoButton text ="+ New Game" link="#this" restartGame={() => props.restartGame} />
     </div>
   )
 }

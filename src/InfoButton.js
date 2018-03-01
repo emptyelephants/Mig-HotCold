@@ -5,7 +5,8 @@ export default function InfoButton(props){
   return(
     <a href={props.link} onClick={(e) => {
       e.preventDefault();
-      props.testFunc();
+      props.restartGame();
+      console.log('click')
     }}>{props.text}</a>
   )
 }
