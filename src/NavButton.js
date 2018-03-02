@@ -1,11 +1,11 @@
 import React from 'react';
-import './InfoButton.css'
-export default function InfoButton(props){
+import './NavButton.css'
+export default function NavButton(props){
 
   return(
     <a href={props.link} onClick={(e) => {
       e.preventDefault();
-      props.restartGame();
+      props.buttonFunction();
       console.log('click')
     }}>{props.text}</a>
   )
