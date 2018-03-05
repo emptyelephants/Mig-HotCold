@@ -4,19 +4,14 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+//redux stuff
+import {Provider} from 'react-redux';
 import store from './store'
-import {addGuess,restartGame} from './actions'
-ReactDOM.render(<App />, document.getElementById('root'));
+
+
+ReactDOM.render(
+<Provider store={store}>
+  <App />
+</Provider>
+  , document.getElementById('root'));
 registerServiceWorker();
-
-
-
-console.log('state is ',store.getState());
-
-
-store.dispatch(addGuess(4));
-store.dispatch(addGuess(99));
-store.dispatch(addGuess(1));
-console.log('state is ',store.getState());
-store.dispatch(restartGame());
-console.log('state is end',store.getState());

@@ -4,7 +4,7 @@ import './GameRules.css';
 
 export default function GameRules(props) {
   return (
-    <section id="what" tabIndex="-1" style={{'visibility':`${props.showInstructions}`}}>
+    <section id="what" tabIndex="-1" onClick={() => props.handleClick()}>
       <h2>What do I do?</h2>
       <p>This is a Hot or Cold Number Guessing Game. The game goes like this:</p>
       <ol>
@@ -12,6 +12,7 @@ export default function GameRules(props) {
         <li>You need to <strong>guess</strong> until you can find the hidden secret number.</li>
         <li>You will <strong>get feedback</strong> on how close ("hot") or far ("cold") your guess is.</li>
       </ol>
+      <button className="play-button"> LETS PLAY </button>
     </section>
   )
 }

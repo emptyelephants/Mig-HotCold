@@ -6,7 +6,6 @@ export default function NavButton(props){
     <a href={props.link} onClick={(e) => {
       e.preventDefault();
       props.buttonFunction();
-      console.log('click')
     }}>{props.text}</a>
   )
 }

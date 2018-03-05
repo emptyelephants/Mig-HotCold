@@ -5,80 +5,71 @@ import Controls from './Controls'
 import Answers from './Answers'
 import NavButton from './NavButton'
 import GameRules from './GameRules'
+import {connect} from 'react-redux'
+
+import {addGuess, restartGame, showInstructions} from './actions'
+
 
 class App extends Component {
-  constructor(props){
-    super(props)
-    this.state ={
-      currentGuess:[],
-      correctAnswer:Math.floor(Math.random()*100),
-      isExplaining:false
-    }
-  }
+
   giveFeedback(userGuess){
-    const difference = Math.abs(userGuess-this.state.correctAnswer);
-    if(difference ===0){
-      return 'winner !'
+    const difference = userGuess ? Math.abs(userGuess-this.props.correctAnswer):undefined;
+    switch (true) {
+      case(difference === 0):
+        return'You Win!';
+      case (difference>=40):
+        return'freezing cold';
+      case (difference>=30):
+        return'cold';
+      case (difference>=20):
+        return'warm';
+      case (difference>=10):
+        return'hotter';
+      case (difference<=10):
+        return'HOT!!';
+      default:
+        return 'Make Your Guess';
     }
-    else if(difference>=40){
-      return 'freezing cold';
-    }
-    else if(difference>=30){
-      return 'cold';
-    }
-    else if (difference>=20) {
-      return 'warm'
-    }
-    else if (difference>=10) {
-      return 'hotter'
-    }
-    else if (difference<=10){
-      return 'hot!!!';
-    }
+
   }
 
-  restartGame(){
-    console.log('restarting game');
-    this.setState({currentGuess:[],correctAnswer:Math.floor(Math.random()*100)})
-  }
-
-  showInstructions(){
-    this.setState({isExplaining:true})
-  }
-  hideInstructions(){
-    this.setState({isExplaining:false})
-  }
   getGuess(guess){
-    if(this.state.currentGuess.includes(guess)) {
-      alert('You tried that number already!')
-    }
-    else{
-      this.setState({currentGuess:[...this.state.currentGuess,guess]})
-    }
+    this.props.dispatch(addGuess(parseInt(guess,10)));
+  }
+  restartGame(){
+    this.props.dispatch(restartGame());
+  }
+  handleInstructions(){
+    this.props.dispatch(showInstructions())
   }
 
   render() {
-    //arr.slice(-1).pop()
-    const userGuess = this.state.currentGuess[this.state.currentGuess.length-1];
-    const feedBackString = this.giveFeedback(userGuess);
-    const showInstructions = this.state.isExplaining;
-
+    const gameRules = this.props.isInstructing ? <GameRules handleClick={() => this.handleInstructions()} /> : null;
     return (
       <div className="App">
-        <GameRules showInstructions={showInstructions ? 'visible':'hidden'} />
+        {gameRules}
         <div className="navbar">
-          <NavButton link="#" text="How To Play" buttonFunction={() => this.showInstructions()} />
+          <NavButton link="#" text="How To Play" buttonFunction={() => this.handleInstructions()} />
           <NavButton link="#" text="New Game" buttonFunction={() => this.restartGame()} />
         </div>
         <h1 className="App-title">Hot or Cold</h1>
           <div className="game-box">
-            <Feedback feedBackString={feedBackString}/>
-            <Controls lastGuess={userGuess} getGuess = {(guess)=> this.getGuess(guess)} />
-            <Answers currentGueses={this.state.currentGuess} />
+            <Feedback feedBackString={this.giveFeedback(this.props.currentGuess)}/>
+            <Controls lastGuess={this.props.currentGuess} getGuess = {(e) =>this.getGuess(e)} />
+            <Answers currentGueses={this.props.answers} />
           </div>
       </div>
     );
   }
 }
 
-export default App;
+
+const mapStateToProps = (state) => ({
+  answers:state.answers,
+  currentGuess:state.currentGuess,
+  correctAnswer:state.correctAnswer,
+  isInstructing:state.isInstructing
+
+})
+
+export default connect(mapStateToProps)(App);
